@@ -30,7 +30,7 @@
       text-lg font-semibold text-gray-700;
   }
 
-  .modal-panel {
+  /* .modal-panel {
     @apply m-auto w-full max-w-sm overflow-hidden rounded-lg bg-white p-0 shadow-xl;
-  }
+  } */
 }
