@@ -1,11 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voting App</title>
+  <link rel="stylesheet" href="./src/output.css">
 </head>
-<body>
-    
+<body class="min-h-screen bg-gray-100 flex items-center justify-center p-6">
+
+  <div class="vote-card">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">Cast Your Vote</h1>
+
+    <form id="vote-form" class="space-y-6">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-end">
+        <div class="flex-1">
+          <label for="voter-name" class="mb-1 block text-sm font-medium text-gray-700">Enter Name</label>
+          <input id="voter-name" name="voter-name" type="text" placeholder="Voter" class="form-control">
+        </div>
+        <div class="flex-1">
+          <label for="candidate" class="mb-1 block text-sm font-medium text-gray-700">Candidates</label>
+          <select id="candidate" name="candidate" class="form-control">
+            <option value="" disabled selected>Select a candidate</option>
+            <option value="candidate-a">Augustine</option>
+            <option value="candidate-b">kosy</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" class="primary-button">Submit Vote</button>
+    </form>
+
+    <div class="mt-10 flex items-center justify-between">
+      <div class="flex flex-col items-center gap-1">
+        <button type="button" id="check-result-btn" class="result-button" aria-haspopup="dialog" aria-controls="result-dialog">
+        </button>
+        <span class="text-xs text-gray-500">Check Result</span>
+      </div>
+
+      <div class="flex flex-col items-center gap-1">
+        <div class="vote-count" id="vote-count">128</div>
+        <span class="text-xs text-gray-500">Total votes</span>
+      </div>
+    </div>
+
+  
 </body>
 </html>
