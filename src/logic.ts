@@ -1,52 +1,49 @@
 import type { Tvoter, Tcandidate, Tpoll, Result } from './types';
 
-const candidate: Tcandidate[] = ["lillian", "victor"];
+const candidates: Tcandidate[] = ["lillian", "victor"];
 const poll: Tpoll = {}
 const votingRecord: Partial<Record<Tvoter, Tcandidate>> = {}
 
-function castVote(voter: Tvoter, votedFor: Tcandidate): boolean {
-  if (voter.trim() == '') {
-    alert("Enter your name")
-    return false
-  } else if (votingRecord[voter]) {
-    alert("You have already voted")
-    return false
-  }
-  votingRecord[voter] = votedFor;
-  poll[votedFor] = (poll[votedFor] ?? 0) + 1;
-  return true;
+type CastVoteResult = { success: true } | { success: false; reason: "empty-name" | "already-voted" | "invalid-candidate" };
+
+function isCandidate(value: string): value is Tcandidate {
+  return candidates.includes(value as Tcandidate);
 }
 
+function castVote(voter: Tvoter, votedFor: Tcandidate): CastVoteResult {
+  const trimmedVoter = voter.trim();
+  const candidate = votedFor.toLowerCase().trim();
+  
+  if (!isCandidate(candidate)) return { success: false, reason: "invalid-candidate" };
+  if (trimmedVoter == '') return { success: false, reason: "empty-name" };
+  if (votingRecord[trimmedVoter]) return { success: false, reason: "already-voted" };
+  
+  
+  votingRecord[trimmedVoter] = candidate;
+  poll[candidate] = (poll[candidate] ?? 0) + 1;
+  return {success:true};
+}
 
 function getWinner(): Tcandidate | undefined {
   const polled = Object.entries(poll);
+  if (polled.length === 0) return undefined;
   
-  const winnerObject = polled.reduce((acc, [candidate, count]) => {
-    if (Object.entries(acc).length === 0) {
-      acc[candidate] = Number(count);
-      return acc;
-    }
-    let voteCount = Number(count);
-    let currentWinner = Object.keys(acc)[0];
-    let currentWinnerVoteCount = acc[currentWinner];
-    let isTied = false;
-    if (voteCount > currentWinnerVoteCount) {
-      delete acc[currentWinner]; 
-      acc[candidate] = voteCount;
+  let winner: string | undefined;
+  let winnerCount = -Infinity;
+  let isTied = false;
+
+  for (const [contestant, value] of polled) {
+    const newCount = Number(value);
+    if (newCount > winnerCount) {
+      winner = contestant
+      winnerCount = newCount;
       isTied = false;
-    } else if (voteCount === currentWinnerVoteCount) {
+    } else if (newCount === winnerCount) {
       isTied = true;
     }
-    return acc;
-    
-    
-  }, {} as Record<string, number>)
-  if (winnerObject.isTied) {
-    return undefined
   }
-  return Object.keys(winnerObject)[0] as Tcandidate;
+  return isTied ? undefined : winner as Tcandidate;
 }
-
 
 const getResult = (): Result => {
   return {
