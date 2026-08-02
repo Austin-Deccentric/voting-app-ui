@@ -17,19 +17,17 @@
       <div class="flex flex-col gap-4 sm:flex-row sm:items-end">
         <div class="flex-1">
           <label for="voter-name" class="mb-1 block text-sm font-medium text-gray-700">Enter Name</label>
-          <input id="voter-name" name="voter-name" type="text" placeholder="Voter" class="form-control">
+          <input id="voter-name" name="voter-name" type="text" placeholder="Voter" class="form-control" required>
         </div>
         <div class="flex-1">
           <label for="candidate" class="mb-1 block text-sm font-medium text-gray-700">Candidates</label>
           <select id="candidate" name="candidate" class="form-control">
             <option value="" disabled selected>Select a candidate</option>
-            <option value="candidate-a">Augustine</option>
-            <option value="candidate-b">kosy</option>
           </select>
         </div>
       </div>
 
-      <button type="submit" class="primary-button">Submit Vote</button>
+      <button id= "vote-button" type="submit" class="primary-button">Submit Vote</button>
     </form>
 
     <div class="mt-10 flex items-center justify-between">
@@ -56,15 +54,15 @@
       <div class="space-y-3 px-6 py-5">
         <div class="flex items-center justify-between text-sm">
           <span class="text-gray-500">Winner: </span>
-          <span class="font-semibold text-gray-900"> Candidate A</span>
+          <span id = "result-winner" class="font-semibold text-gray-900"> Candidate A</span>
         </div>
         <div class="flex items-center justify-between text-sm">
           <span class="text-gray-500">Winner Votes</span>
-          <span class="font-semibold text-gray-900">XX</span>
+          <span id= "result-winner-votes" class="font-semibold text-gray-900">XX</span>
         </div>
         <div class="flex items-center justify-between text-sm">
           <span class="text-gray-500">Total Votes</span>
-          <span class="font-semibold text-gray-900">XX</span>
+          <span id="result-total-votes" class="font-semibold text-gray-900">XX</span>
         </div>
       </div>
 
@@ -74,28 +72,28 @@
     </dialog>
 
     <script>
-      const voteForm = document.getElementById('vote-form');
-      const checkResultBtn = document.getElementById('check-result-btn');
-      const closeResultBtn = document.getElementById('close-result-btn');
-      const resultDialog = document.getElementById('result-dialog');
+    //   const voteForm = document.getElementById('vote-form');
+    //   const checkResultBtn = document.getElementById('check-result-btn');
+    //   const closeResultBtn = document.getElementById('close-result-btn');
+    //   const resultDialog = document.getElementById('result-dialog');
 
-      voteForm.addEventListener('submit', (e) => e.preventDefault());
+    //   voteForm.addEventListener('submit', (e) => e.preventDefault());
 
-      checkResultBtn.addEventListener('click', () => resultDialog.showModal());
-      closeResultBtn.addEventListener('click', () => resultDialog.close());
+    //   checkResultBtn.addEventListener('click', () => resultDialog.showModal());
+    //   closeResultBtn.addEventListener('click', () => resultDialog.close());
 
-      resultDialog.addEventListener('click', (event) => {
-        const rect = resultDialog.getBoundingClientRect();
-        const clickedOutside =
-          event.clientX < rect.left ||
-          event.clientX > rect.right ||
-          event.clientY < rect.top ||
-          event.clientY > rect.bottom;
-        if (clickedOutside) resultDialog.close();
-      });
-    </script>
+    //   resultDialog.addEventListener('click', (event) => {
+    //     const rect = resultDialog.getBoundingClientRect();
+    //     const clickedOutside =
+    //       event.clientX < rect.left ||
+    //       event.clientX > rect.right ||
+    //       event.clientY < rect.top ||
+    //       event.clientY > rect.bottom;
+    //     if (clickedOutside) resultDialog.close();
+    //   });
+    // </script>
 
-
+    <script src="./src/main.ts"></script>
 </body>
 
 </html>
