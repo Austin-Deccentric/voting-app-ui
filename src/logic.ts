@@ -1,8 +1,10 @@
 import type { Tvoter, Tcandidate, Tpoll, Result } from './types';
 
-const candidates: Tcandidate[] = ["lillian", "victor"];
-const poll: Tpoll = {}
-const votingRecord: Partial<Record<Tvoter, Tcandidate>> = {}
+export const candidates: Tcandidate[] = ["lillian", "victor"];
+const poll: Tpoll = {};
+const votingRecord: Partial<Record<Tvoter, Tcandidate>> = {};
+export const totalVotes = () => Object.keys(votingRecord).length;
+
 
 type CastVoteResult = { success: true } | { success: false; reason: "empty-name" | "already-voted" | "invalid-candidate" };
 
@@ -10,12 +12,12 @@ function isCandidate(value: string): value is Tcandidate {
   return candidates.includes(value as Tcandidate);
 }
 
-function castVote(voter: Tvoter, votedFor: Tcandidate): CastVoteResult {
+export function castVote(voter: Tvoter, votedFor: string): CastVoteResult {
   const trimmedVoter = voter.trim();
   const candidate = votedFor.toLowerCase().trim();
-  
-  if (!isCandidate(candidate)) return { success: false, reason: "invalid-candidate" };
+
   if (trimmedVoter == '') return { success: false, reason: "empty-name" };
+  if (!isCandidate(candidate)) return { success: false, reason: "invalid-candidate" };
   if (votingRecord[trimmedVoter]) return { success: false, reason: "already-voted" };
   
   
@@ -45,9 +47,9 @@ function getWinner(): Tcandidate | undefined {
   return isTied ? undefined : winner as Tcandidate;
 }
 
-const getResult = (): Result => {
+export const getResult = (): Result => {
   return {
-    totalVotes : Object.entries(votingRecord).length,
+    totalVotes : Object.keys(votingRecord).length,
     winner : getWinner(),
     poll
   }
