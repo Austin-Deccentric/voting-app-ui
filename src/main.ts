@@ -61,7 +61,7 @@ voteForm.addEventListener('submit', (e) => {
 checkResultBtn.addEventListener("click", () => {
   const result = getResult();
   const winner = result.winner
-  winnerEl.textContent = winner ? winner.charAt(0).toUpperCase() + winner.slice(0) : "No winner yet";
+  winnerEl.textContent = winner ? winner.charAt(0).toUpperCase() + winner.slice(1) : "No winner yet";
   winnerVotesEl.textContent = winner ? String(result.poll[winner] ?? 0) : "0";
   totalVotesEl.textContent = String(result.totalVotes);
 
