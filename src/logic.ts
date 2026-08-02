@@ -17,8 +17,8 @@ export function castVote(voter: Tvoter, votedFor: string): CastVoteResult {
   const candidate = votedFor.toLowerCase().trim();
 
   if (trimmedVoter == '') return { success: false, reason: "empty-name" };
-  if (!isCandidate(candidate)) return { success: false, reason: "invalid-candidate" };
   if (votingRecord[trimmedVoter]) return { success: false, reason: "already-voted" };
+  if (!isCandidate(candidate)) return { success: false, reason: "invalid-candidate" };
   
   
   votingRecord[trimmedVoter] = candidate;
