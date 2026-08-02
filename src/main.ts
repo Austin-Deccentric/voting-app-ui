@@ -16,8 +16,8 @@ const winnerVotesEl = document.getElementById("result-winner-votes") as HTMLSpan
 const totalVotesEl = document.getElementById("result-total-votes") as HTMLSpanElement;
 
 function populateCandidates(selectEl: HTMLSelectElement, candidateList: Tcandidate[]) {
-  const option = document.createElement('option');
   candidateList.forEach((candidate) => {
+    const option = document.createElement('option');
     option.value = candidate;
     option.textContent = candidate.charAt(0).toUpperCase() + candidate.slice(1);
     selectEl.appendChild(option);
