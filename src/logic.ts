@@ -1,8 +1,8 @@
 import type { Tvoter, Tcandidate, Tpoll, Result } from './types';
 
-export const candidates: Tcandidate[] = ["lillian", "victor", "ifeanyi"];
+export const candidates: Readonly<Tcandidate[]> = ["lillian", "victor", "ifeanyi"];
 const poll: Tpoll = {};
-const votingRecord: Partial<Record<Tvoter, Tcandidate>> = {};
+const votingRecord: Record<Tvoter, Tcandidate> = {};
 export const totalVotes = () => Object.keys(votingRecord).length;
 
 

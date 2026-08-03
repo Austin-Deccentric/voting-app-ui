@@ -1,5 +1,5 @@
 import { castVote, getResult, candidates, totalVotes} from './logic';
-import { Tcandidate } from './types';
+import {type Tcandidate } from './types';
 
 const voteForm = document.getElementById("vote-form") as HTMLFormElement;
 const voterName = document.getElementById("voter-name") as HTMLInputElement;
@@ -15,7 +15,7 @@ const winnerEl = document.getElementById("result-winner") as HTMLSpanElement;
 const winnerVotesEl = document.getElementById("result-winner-votes") as HTMLSpanElement;
 const totalVotesEl = document.getElementById("result-total-votes") as HTMLSpanElement;
 
-function populateCandidates(selectEl: HTMLSelectElement, candidateList: Tcandidate[]) {
+function populateCandidates(selectEl: HTMLSelectElement, candidateList: readonly Tcandidate[]) {
   candidateList.forEach((candidate) => {
     const option = document.createElement('option');
     option.value = candidate;
