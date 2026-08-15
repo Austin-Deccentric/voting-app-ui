@@ -5,9 +5,9 @@ const poll: Tpoll = {};
 const votingRecord: Record<Tvoter, Tcandidate> = {};
 export const totalVotes = () => Object.keys(votingRecord).length;
 
-
 type CastVoteResult = { success: true } | { success: false; reason: "empty-name" | "already-voted" | "invalid-candidate" };
 
+/** Type guard to validate if a value is a valid candidate */
 function isCandidate(value: string): value is Tcandidate {
   return candidates.includes(value as Tcandidate);
 }
@@ -34,6 +34,7 @@ function getWinner(): Tcandidate | undefined {
   let winnerCount = -Infinity;
   let isTied = false;
 
+  // Find the candidate with the most votes; returns undefined if there's a tie
   for (const [contestant, value] of polled) {
     const newCount = Number(value);
     if (newCount > winnerCount) {

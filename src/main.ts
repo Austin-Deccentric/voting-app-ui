@@ -4,7 +4,6 @@ import {type Tcandidate } from './types';
 const voteForm = document.getElementById("vote-form") as HTMLFormElement;
 const voterName = document.getElementById("voter-name") as HTMLInputElement;
 const candidateSelect = document.getElementById("candidate") as HTMLSelectElement;
-// const vote = document.getElementById("vote-button") as HTMLButtonElement;
 const voteCounter = document.getElementById("vote-count") as HTMLDivElement;
 
 const checkResultBtn = document.getElementById('check-result-btn') as HTMLButtonElement;
@@ -41,7 +40,6 @@ function showErrorMsg(resaon: "empty-name" | "invalid-candidate" | "already-vote
   }
 }
 
-
 populateCandidates(candidateSelect, candidates);
 refreshVoteCount();
 
@@ -60,7 +58,8 @@ voteForm.addEventListener('submit', (e) => {
 
 checkResultBtn.addEventListener("click", () => {
   const result = getResult();
-  const winner = result.winner
+  const winner = result.winner;
+  // Display "No winner yet" if there's a tie (winner is undefined)
   winnerEl.textContent = winner ? winner.charAt(0).toUpperCase() + winner.slice(1) : "No winner yet";
   winnerVotesEl.textContent = winner ? String(result.poll[winner] ?? 0) : "0";
   totalVotesEl.textContent = String(result.totalVotes);
@@ -71,6 +70,7 @@ checkResultBtn.addEventListener("click", () => {
 closeResultBtn.addEventListener("click", () => resultDialog.close());
 
 resultDialog.addEventListener("click", (event) => {
+  // Close dialog when clicking on backdrop (not the dialog content)
   if (event.target === resultDialog) {
     resultDialog.close();
   }
